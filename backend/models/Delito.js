@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
+// Modelo para Delito
 const delitoSchema = new mongoose.Schema({
   tipoDelito: {
     type: String,
+    required: true,
+  },
+  categoriaDelito: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CategoriaDelito',
     required: true,
   },
   fecha: {
@@ -11,8 +17,7 @@ const delitoSchema = new mongoose.Schema({
     default: Date.now,
   },
   ubicacion: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ubicacion',
+    type: String,
     required: true,
   },
   direccion: {
@@ -27,6 +32,7 @@ const delitoSchema = new mongoose.Schema({
     type: String,
     enum: ['resuelto', 'en curso', 'archivado'],
     default: 'en curso',
+    required:true
   },
   usuarioReporte: {
     type: mongoose.Schema.Types.ObjectId,
@@ -37,13 +43,34 @@ const delitoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Usuario',
   },
-  evidencias: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Evidencia' }],
+  evidencias: [
+    {
+      nombre: String,
+      tipo: String,
+      archivo: String,
+    },
+  ],
   testigos: {
     type: Boolean,
     required: false,
   },
+  categoriaDelito: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CategoriaDelito',
+    required: true,
+  },
+  comuna: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comuna',
+    required: true,
+  },
+  comentarios: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comentario',
+    },
+  ],
 });
 
 const Delito = mongoose.model('Delito', delitoSchema);
-
-module.exports = Delito;
+module.exports =Delito
