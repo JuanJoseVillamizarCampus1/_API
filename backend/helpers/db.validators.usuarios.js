@@ -7,6 +7,12 @@ const isValidRole = async (rol='')=>{
         throw new Error (`El rol ${rol} no esta registrado en la base de datos`)
     }
 }
+const permisosRol = async (rol='')=>{
+    const existeRol = await Role.findOne({rol})
+    if (existeRol!='autoridad'||'admin'){
+        throw new Error (`El rol ${rol} no tiene permisos para borrar Delito`)
+    }
+}
 const emailExiste = async( correoElectronico = '' ) => {
     const existeEmail = await Usuario.findOne({correoElectronico});
     if(existeEmail){

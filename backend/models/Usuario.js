@@ -3,21 +3,21 @@ const {Schema, model} = require('mongoose')
 const UsuarioSchema = Schema({
     nombre: {
         type: String,
-        required: true,
+        required: [true, 'El nombre es requerido']
       },
       apellido: {
         type: String,
-        required: true,
+        required:[true, 'El apellido es requerido']
       },
       correoElectronico: {
         type: String,
-        required: true,
+        required: [true, 'El correo electronico es requerido'],
         unique: true, // Asegura que el correo electrónico sea único
         lowercase: true, // Almacena el correo electrónico en minúsculas
       },
       contraseña: {
         type: String,
-        required: true,
+        required: [true, 'La contraseña es requerida']
       },
       rol: {
         type: String,

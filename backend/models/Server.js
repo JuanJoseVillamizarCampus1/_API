@@ -14,7 +14,8 @@ class Server {
         delitos:'/api/delitos',
         comunas:'/api/comunas',
         categoriaD:'/api/categoriasDelitos',
-        denunciaAnonima:'/api/denunciaAnonima'
+        denunciaAnonima:'/api/denuncia-anonima',
+        login:'/api/login'
     }
     this.routes()
     }
@@ -31,7 +32,8 @@ class Server {
         this.app.use(this.path.delitos,require('../routes/delitos.routes'));
         this.app.use(this.path.comunas,require('../routes/comunas.routes'));
         this.app.use(this.path.categoriaD,require('../routes/categoriasDelitos.routes'));
-        this.app.use(this.path.denunciaAnonima,require('../routes/denuncia.routes'))
+        this.app.use(this.path.denunciaAnonima,require('../routes/denuncia.routes'));
+        this.app.use(this.path.login,require('../routes/login.routes'))
     }
     listen(){
         this.app.listen(this.port,()=>{

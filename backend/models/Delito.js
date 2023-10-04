@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const delitoSchema = new mongoose.Schema({
   tipoDelito: {
     type: String,
-    required: true,
+    required: [true, 'El tipo de delito es requerida'],
   },
   categoriaDelito: {
     type: mongoose.Schema.Types.ObjectId,
@@ -22,11 +22,11 @@ const delitoSchema = new mongoose.Schema({
   },
   direccion: {
     type: String,
-    required: true,
+    required: [true, 'La direccion es requerida'],
   },
   descripcion: {
     type: String,
-    required: true,
+    required: [true, 'La descripcion del delito es requerida'],
   },
   estado: {
     type: String,

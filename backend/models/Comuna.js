@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const comunaSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    required: true,
+    required: [true, 'El nombre de la comuna es requerida'],
   },
   barrios: [{
     type: String,

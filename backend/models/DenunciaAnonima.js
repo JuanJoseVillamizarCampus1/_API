@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const denunciaAnonimaSchema = new mongoose.Schema({
   tipoDelito: {
     type: String,
-    required: true,
+    required: [true, 'El tipo de delito es requerido'],
   },
   categoriaDelito: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,7 @@ const denunciaAnonimaSchema = new mongoose.Schema({
   },
   direccion: {
     type: String, // Cambiar el tipo a String
-    required: true,
+    required: [true, 'La direccion es requerida'],
   },
   comuna: {
     type: mongoose.Schema.Types.ObjectId,
@@ -30,7 +30,7 @@ const denunciaAnonimaSchema = new mongoose.Schema({
   },
   descripcion: {
     type: String,
-    required: true,
+    required: [true, 'La descripcion del delito es requerida'],
   },
   evidencia: {
     type: String,
