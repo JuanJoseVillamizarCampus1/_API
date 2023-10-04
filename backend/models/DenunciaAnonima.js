@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
 const denunciaAnonimaSchema = new mongoose.Schema({
-  delito: {
+  tipoDelito: {
+    type: String,
+    required: true,
+  },
+  categoriaDelito: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Delito',
+    ref: 'CategoriaDelito',
     required: true,
   },
   fecha: {
@@ -12,8 +16,17 @@ const denunciaAnonimaSchema = new mongoose.Schema({
     default: Date.now,
   },
   ubicacion: {
-    latitud: Number,
-    longitud: Number,
+    type: String, // Cambiar el tipo a String
+    required: true,
+  },
+  direccion: {
+    type: String, // Cambiar el tipo a String
+    required: true,
+  },
+  comuna: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comuna',
+    required: true,
   },
   descripcion: {
     type: String,
@@ -34,6 +47,6 @@ const denunciaAnonimaSchema = new mongoose.Schema({
   },
 });
 
-const DenunciaAnonima = mongoose.model('DenunciaAnonima', denunciaAnonimaSchema);
+const DenunciaAnonima = mongoose.model('DenunciasAnonima', denunciaAnonimaSchema);
 
 module.exports = DenunciaAnonima;

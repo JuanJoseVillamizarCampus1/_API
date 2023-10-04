@@ -44,4 +44,9 @@ Esta descripción proporciona una visión general de las capacidades y los objet
   "usuarioReporte": "65131258d113d0d672baa518"
 }
 
+Visualizacion diagrama base de datos
+ https://lucid.app/lucidchart/b69d7582-f114-4f92-8a93-75271d798f20/edit?viewport_loc=20%2C-109%2C2323%2C1105%2C0_0&invitationId=inv_7911c17b-ecd2-4231-97cf-5b3a6278ae5f
+
+
+
 https://lucid.app/lucidchart/b69d7582-f114-4f92-8a93-75271d798f20/edit?viewport_loc=-115%2C17%2C2125%2C1075%2C0_0&invitationId=inv_7911c17b-ecd2-4231-97cf-5b3a6278ae5f

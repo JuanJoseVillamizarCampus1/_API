@@ -29,7 +29,7 @@ const UsuarioSchema = Schema({
         type: {
           latitud: Number,
           longitud: Number,
-        },
+        }, _id: false,
       },  estado :{
         type:Boolean,
         default: true
