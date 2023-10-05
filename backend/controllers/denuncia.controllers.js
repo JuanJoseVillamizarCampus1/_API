@@ -12,7 +12,6 @@ const postDenuncia = async (req, res) => {
       testigos,
       comuna,
     } = req.body;
-
     const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
       direccion
     )}`;
@@ -49,7 +48,7 @@ const postDenuncia = async (req, res) => {
   }
 };
 //-------------------------------------------------------------------//
-//GET DENUNCIAS
+//GET DENUNCIAS activas
 const getDenunciasAnonimas = async (req, res) => {
   try {
     //Paginacion
@@ -59,6 +58,35 @@ const getDenunciasAnonimas = async (req, res) => {
     const startIndex = (page - 1) * perPage;
     // Consulta para obtener las denuncias anónimas paginadas
     const denuncias = await DenunciaAnonima.find({estado:'en curso'})
+      .populate("categoriaDelito")
+      .skip(startIndex)
+      .limit(perPage);
+    // Contar el total de denuncias anónimas
+    const totalDenuncias = await DenunciaAnonima.countDocuments();
+    const response = {
+      denuncias,
+      pageInfo: {
+        PaginaActual: page,
+        totalPaginas: Math.ceil(totalDenuncias / perPage),
+        totalDenuncias: totalDenuncias,
+      },
+    };
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Error al obtener denuncias anonimas" });
+  }
+};
+//-------------------------------------------------------------------//
+//GET DENUNCIAS TOTALES
+const getDenunciasTotales = async (req, res) => {
+  try {
+    //Paginacion
+    const page = parseInt(req.query.page) || 1; //pagina de inicio
+    const perPage = parseInt(req.query.perPage) || 10; //resultados por pagina
+    // Calcular el índice de inicio
+    const startIndex = (page - 1) * perPage;
+    // Consulta para obtener las denuncias anónimas paginadas
+    const denuncias = await DenunciaAnonima.find()
       .populate("categoriaDelito")
       .skip(startIndex)
       .limit(perPage);
@@ -89,4 +117,4 @@ const deletedenuncia= async(req,res)=>{
     }
    
 }
-module.exports = { postDenuncia, getDenunciasAnonimas,deletedenuncia };
+module.exports = { postDenuncia, getDenunciasAnonimas,deletedenuncia,getDenunciasTotales };

@@ -50,10 +50,6 @@ const postDelito = async (req, res) => {
       const delito = new Delito(delitoData);
       delito.usuarioAsignado = asignado;
       delito.categoriaDelito = categoria;
-      delito.categoriaDelito = {
-        nombre: categoria.nombre,
-        descripcion: categoria.descripcion,
-      };
 
       await delito.save();
 
@@ -66,14 +62,63 @@ const postDelito = async (req, res) => {
     res.status(500).json({ msg: 'Error interno del servidor' });
   }
 };
-//Consultar Delito
+//-----------------------------------------------------------------------------//
+//Consultar Delitos activos
 const getDelitos = async (req,res)=>{
-    try {
-        const delitos = await Delito.find();
-        res.status(200).json(delitos);
-    } catch (error) {
-        res.status(404).json({ msg: 'Error al obtener Delitos' });
-    }
+  try {
+    //Paginacion
+    const page = parseInt(req.query.page) || 1; //pagina de inicio
+    const perPage = parseInt(req.query.perPage) || 10; //resultados por pagina
+    // Calcular el índice de inicio
+    const startIndex = (page - 1) * perPage;
+    // Consulta para obtener las denuncias anónimas paginadas
+    const delitos = await Delito.find({estado:'en curso'})
+      .populate("categoriaDelito")
+      .skip(startIndex)
+      .limit(perPage);
+    // Contar el total de denuncias anónimas
+    const totalDelitos = await Delito.countDocuments();
+    const response = {
+      delitos,
+      pageInfo: {
+        PaginaActual: page,
+        totalPaginas: Math.ceil(totalDelitos / perPage),
+        totalDelitos: totalDelitos,
+      },
+    };
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Error al obtener denuncias anonimas" });
+  }
+}
+//-----------------------------------------------------------------------------//
+//Consultar TODOS LOS DELITOS
+const getAllDelitos = async (req,res)=>{
+  try {
+    //Paginacion
+    const page = parseInt(req.query.page) || 1; //pagina de inicio
+    const perPage = parseInt(req.query.perPage) || 10; //resultados por pagina
+    // Calcular el índice de inicio
+    const startIndex = (page - 1) * perPage;
+    // Consulta para obtener las denuncias anónimas paginadas
+    const delitos = await Delito.find()
+      .populate("categoriaDelito")
+      .skip(startIndex)
+      .limit(perPage);
+    // Contar el total de denuncias anónimas
+    const totalDelitos = await Delito.countDocuments();
+    const response = {
+      delitos,
+      pageInfo: {
+        PaginaActual: page,
+        totalPaginas: Math.ceil(totalDelitos / perPage),
+        totalDelitos: totalDelitos,
+      },
+    };
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Error al obtener denuncias anonimas" });
+  }
 }
 //Borrar Delito
 const borrarDelito = async (req,res)=>{
@@ -86,4 +131,4 @@ const borrarDelito = async (req,res)=>{
     res.status(404).json({ msg: 'Error al borrar delito' });
   }
 }
-module.exports= {postDelito,getDelitos,borrarDelito}
+module.exports= {postDelito,getDelitos,borrarDelito,getAllDelitos}
