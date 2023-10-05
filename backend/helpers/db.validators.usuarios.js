@@ -25,11 +25,23 @@ const isAdminRole = ( req, res, next ) => {
    next();
 }
 
-const permisosRol = async (rol='')=>{
-    const existeRol = await Role.findOne({rol})
-    if (existeRol!='autoridad'||'admin'){
-        throw new Error (`El rol ${rol} no tiene permisos para borrar Delito`)
+const permisosRol = async (req, res, next) => {
+    if (!req.usuario) {
+        return res.status(500).json({
+            msg: 'Se quiere verificar el role sin validar el token primero'
+        });
     }
+
+    const { rol, nombre } = req.usuario;
+    
+    // Utiliza el operador lógico || para permitir 'Admin' o 'Autoridad'
+    if (rol !== 'Admin' && rol !== 'Autoridad') {
+        return res.status(401).json({
+            msg: `${nombre} no es administrador ni autoridad - No puede hacer esto`
+        });
+    }
+
+    next();
 }
 const userExistsById = async( id ) => {
     // Verificar si el id existe

@@ -1,10 +1,11 @@
 const Delito = require('../models/Delito')
 const Usuario = require('../models/Usuario')
 const CategoriaDelito = require('../models/CategoriaDelitos')
+const Comuna = require('../models/Comuna')
 //Agregar Delito
 const postDelito = async (req, res) => {
   try {
-    const { tipoDelito, descripcion, usuarioReporte, direccion, testigos, comentarios, usuarioAsignado, categoriaDelito,comuna } = req.body;
+    const { tipoDelito, descripcion, usuarioReporte, direccion, testigos, comentarios, usuarioAsignado, categoriaDelito,comuna,barrio } = req.body;
 
     // Verificar si el usuario existe
     const usuarioExiste = await Usuario.findById(usuarioReporte);
@@ -33,8 +34,14 @@ const postDelito = async (req, res) => {
         testigos,
         usuarioAsignado,
         categoriaDelito,
-        comuna
+        comuna,
+        barrio
       };
+      const comunaname = await Comuna.findOne({ nombre: comuna });
+
+if (!comunaname) {
+  return res.status(404).json({ msg: 'Comuna no encontrada' });
+}
 
       // Buscar el usuario asignado y la categoría de delito
       const [asignado, categoria] = await Promise.all([

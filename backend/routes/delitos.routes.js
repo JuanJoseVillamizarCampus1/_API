@@ -8,7 +8,7 @@ const routerDelito = require('express').Router();
 //POST DELITO
 routerDelito.post('/',[check('tipoDelito','El tipo de delito no es valido').not().isEmpty(),check(),check('descripcion','La descripcion no es valida').not().isEmpty(),check('direccion','La direccion no es valida').not().isEmpty(),check('comuna','La comuna no es valida').not().isEmpty(),validateDocuments],postDelito) //POST//localhost:8001/api/delitos
 //  GET DELITOS EN CURSO
-routerDelito.get('/',[permisosRol,validateDocuments],getDelitos)//GET//localhost:8001/api/delitos?page=1&perPage=10
+routerDelito.get('/',[validateJWT,permisosRol,validateDocuments],getDelitos)//GET//localhost:8001/api/delitos?page=1&perPage=10
 //GET ALL DELITOS
 routerDelito.get('/all',[permisosRol,validateDocuments],getAllDelitos)//GET//localhost:8001/api/delitos/all?page=1&perPage=10
 routerDelito.delete('/:id',[validateJWT,permisosRol,check('id', 'No es un ID válido').isMongoId(),

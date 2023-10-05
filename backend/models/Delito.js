@@ -24,6 +24,10 @@ const delitoSchema = new mongoose.Schema({
     type: String,
     required: [true, 'La direccion es requerida'],
   },
+  barrio: {
+    type: String,
+    required: [true, 'El barrio es requerido'],
+  },
   descripcion: {
     type: String,
     required: [true, 'La descripcion del delito es requerida'],

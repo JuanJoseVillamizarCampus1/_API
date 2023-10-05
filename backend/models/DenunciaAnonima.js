@@ -28,6 +28,10 @@ const denunciaAnonimaSchema = new mongoose.Schema({
     ref: 'Comuna',
     required: true,
   },
+  barrio: {
+    type: String,
+    required: [true, 'El barrio es requerido'],
+  },
   descripcion: {
     type: String,
     required: [true, 'La descripcion del delito es requerida'],
