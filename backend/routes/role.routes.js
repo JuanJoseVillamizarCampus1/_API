@@ -7,6 +7,6 @@ const {check} = require('express-validator')
 const routesRole = require('express').Router()
 
 routesRole.post('/',[check('rol','El nombre del rol es necesario').not().isEmpty(),validateJWT,isAdminRole,validateDocuments],postRole)//POST//http://localhost:8001/api/roles
-routesRole.get('/',[validateJWT,isAdminRole,validateDocuments],getRoles)//GET//http://localhost:8001/api/roles
+routesRole.get('/',[validateJWT,isAdminRole,validateDocuments],getRoles)//GET//http://localhost:8001/api/roles KEY header :delitos-api-token-jwt  VALUE: TOKEN 
 
 module.exports= routesRole
