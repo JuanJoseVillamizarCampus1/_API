@@ -1,9 +1,12 @@
+import { Button } from 'react-bootstrap';
 import React from "react";
 import { Link } from "react-router-dom";
+import NavBar from "./Nav"
 
 const Home = () => {
   return (
     <div>
+      <NavBar></NavBar>
       <h1>Página de Inicio - Delitos</h1>
       <p>Bienvenido a la plataforma de denuncias de delitos.</p>
       <div>
@@ -18,7 +21,7 @@ const Home = () => {
       </div>
       <div>
         <Link to="/denuncia-anonima">
-          <button>Hacer Denuncia Anónima</button>
+          <Button>Hacer Denuncia Anónima</Button>
         </Link>
       </div>
     </div>
