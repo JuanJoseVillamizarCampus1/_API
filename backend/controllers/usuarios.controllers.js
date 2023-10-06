@@ -10,7 +10,7 @@ const postUsuario = async (req,res)=>{
         res.status(201).json(usuario)
     } catch (error) {
         console.log(error);
-        res.status(404).json({ msg: 'Todos los datos son obligatorios' });
+        res.status(404).json({ error });
     }
 }
 //Traer todos los usuarios

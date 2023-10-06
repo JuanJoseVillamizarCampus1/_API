@@ -11,6 +11,7 @@ const Registro = () => {
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [rol, setRol] = useState("Ciudadano"); // Establece el rol por defecto
+  const [error, setError] = useState(""); // Estado para manejar el mensaje de error
 
   const handleRegistro = async (e) => {
     e.preventDefault();
@@ -37,10 +38,11 @@ const Registro = () => {
         history.push("/login");
       } else {
         // Manejar errores de validación u otros
-        console.error("Error en la solicitud de registro");
+        setError("Error en la solicitud de registro");
       }
     } catch (error) {
-      console.error("Error en la solicitud de registro", error);
+      // Manejar errores de red o de servidor
+      setError("Error en la solicitud de registro");
     }
   };
 
@@ -93,6 +95,7 @@ const Registro = () => {
           </select>
         </div>
         <button type="submit">Registrar</button>
+        {error && <p style={{ color: "red" }}>{error}</p>} 
       </form>
       <Link to="/">
         <button>Atras</button>

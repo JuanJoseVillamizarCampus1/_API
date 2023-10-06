@@ -9,9 +9,10 @@ const postDenuncia = async (req, res) => {
       categoriaDelito,
       direccion,
       descripcion,
-      testigos,
       comuna,
+      barrio
     } = req.body;
+    const testigos = req.body.testigos === "on"
     const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
       direccion
     )}`;
@@ -28,6 +29,7 @@ const postDenuncia = async (req, res) => {
         testigos,
         categoriaDelito,
         comuna,
+        barrio
       };
       const categoria = await CategoriaDelito.findById(categoriaDelito);
       if (!categoria) {
@@ -58,6 +60,36 @@ const getDenunciasAnonimas = async (req, res) => {
     const startIndex = (page - 1) * perPage;
     // Consulta para obtener las denuncias anónimas paginadas
     const denuncias = await DenunciaAnonima.find({estado:'en curso'})
+      .populate("categoriaDelito")
+      .populate("comuna","nombre")
+      .skip(startIndex)
+      .limit(perPage);
+    // Contar el total de denuncias anónimas
+    const totalDenuncias = await DenunciaAnonima.countDocuments();
+    const response = {
+      denuncias,
+      pageInfo: {
+        PaginaActual: page,
+        totalPaginas: Math.ceil(totalDenuncias / perPage),
+        totalDenuncias: totalDenuncias,
+      },
+    };
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Error al obtener denuncias anonimas" });
+  }
+};
+//-------------------------------------------------------------------//
+//GET DENUNCIAS archivadas
+const getDenunciasarchivadas = async (req, res) => {
+  try {
+    //Paginacion
+    const page = parseInt(req.query.page) || 1; //pagina de inicio
+    const perPage = parseInt(req.query.perPage) || 10; //resultados por pagina
+    // Calcular el índice de inicio
+    const startIndex = (page - 1) * perPage;
+    // Consulta para obtener las denuncias anónimas paginadas
+    const denuncias = await DenunciaAnonima.find({estado:'archivado'})
       .populate("categoriaDelito")
       .skip(startIndex)
       .limit(perPage);
@@ -117,4 +149,4 @@ const deletedenuncia= async(req,res)=>{
     }
    
 }
-module.exports = { postDenuncia, getDenunciasAnonimas,deletedenuncia,getDenunciasTotales };
+module.exports = { postDenuncia, getDenunciasAnonimas,deletedenuncia,getDenunciasTotales,getDenunciasarchivadas };

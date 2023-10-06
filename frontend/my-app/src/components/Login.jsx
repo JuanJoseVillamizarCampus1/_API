@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
 const Login = () => {
@@ -11,41 +10,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
 
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("token");
-  //   if (storedToken) {
-  //     // Redirige al usuario a la página correspondiente según su rol
-  //     const decodedToken = decodeToken(storedToken); // Decodifica el token
-  //     if (decodedToken) {
-  //       const { rol } = decodedToken;
-  //       console.log(decodedToken);
-  //       switch (rol) {
-  //         case "Admin":
-  //           history.push("/admin"); // Redirige al usuario Admin a la página de inicio de Admin
-  //           break;
-  //         case "Autoridad":
-  //           history.push("/autoridad"); // Redirige al usuario Admin a la página de inicio de Admin
-  //           break;
-  //         case "Ciudadano":
-  //           history.push("/ciudadano"); // Redirige al usuario Admin a la página de inicio de Admin
-  //           break;
-  //         // Agrega casos adicionales para otros roles si es necesario
-  //         default:
-  //           history.push("/login"); // Redirige a una ruta por defecto para otros roles
-  //           break;
-  //       }
-  //     }
-  //   }
-
-  // }, [history]);
-  // const decodeToken = (token) => {
-  //   try {
-  //     const decoded = jwt_decode(token); // Decodifica el token
-  //     return decoded;
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,12 +31,13 @@ const Login = () => {
       if (response.status === 200) {
         const data = response.data;
         const tokenapi = data;
+        const token = tokenapi.token;
         const rol = tokenapi.usuario.rol;
         const idusu = tokenapi.usuario._id;
         setToken(tokenapi);
         localStorage.setItem("rol", rol);
+        localStorage.setItem("token", token);
         localStorage.setItem("Usuario", JSON.stringify(idusu));
-        console.log(tokenapi);
         switch (rol) {
           case "Admin":
             history.push("/admin");

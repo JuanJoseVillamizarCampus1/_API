@@ -16,7 +16,7 @@ const login = async (req, res) => {
     if(!validContraseña){
         return res.status(401).json({ msg: 'Credenciales inválidas' });
     }
-    if (usuario.rol === 'Autoridad' || usuario.rol === 'Admin') {
+    if (usuario.rol === 'Autoridad' || usuario.rol === 'Admin' ||  usuario.rol === 'Ciudadano') {
         // El usuario tiene un rol válido, genera el token.
         const token = await generateJWT(usuario.id);
         // Devuelve el token en la respuesta.
