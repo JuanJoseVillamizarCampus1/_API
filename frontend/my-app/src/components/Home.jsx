@@ -1,28 +1,14 @@
-import { Button } from 'react-bootstrap';
 import React from "react";
-import { Link } from "react-router-dom";
-import NavBar from "./Nav"
-
+import HeaderBanner from '../components/banner/banner'
+import Header from '../components/header/Holi';
 const Home = () => {
   return (
-    <div>
-      <NavBar></NavBar>
-      <h1>Página de Inicio - Delitos</h1>
-      <p>Bienvenido a la plataforma de denuncias de delitos.</p>
-      <div>
-        <Link to="/login">
-          <button>Iniciar Sesión</button>
-        </Link>
-      </div>
-      <div>
-        <Link to="/registro">
-          <button>Registrarse</button>
-        </Link>
-      </div>
-      <div>
-        <Link to="/denuncia-anonima">
-          <Button>Hacer Denuncia Anónima</Button>
-        </Link>
+    <div id="main-wrapper">
+      <Header/>
+      <div className="page-wrapper">
+          <div className="container-fluid">
+              <HeaderBanner/>
+          </div>  
       </div>
     </div>
   );

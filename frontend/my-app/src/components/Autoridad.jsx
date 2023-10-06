@@ -8,12 +8,12 @@ import DelitoCard from "./CarDelito";
 const Autoridad = () => {
   const history = useHistory();
   const [denuncias, setDenuncias] = useState([]);
-  const [delitos, setDelitos] = useState([]);  // Estado para almacenar las denuncias
-
+  const [delitos, setDelitos] = useState([]);
+  const [mensaje, setMensaje] = useState("");   // Estado para almacenar las denuncias
+   // Obtener token de localStorage
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    // Obtener token de localStorage
-    const token = localStorage.getItem("token");
-
+   
     // Verificar si hay un token
     if (token) {
       // Configurar los encabezados con el token de autenticación
@@ -42,13 +42,18 @@ const Autoridad = () => {
       // Si no hay un token, redirigir al usuario a la página de inicio de sesión
       history.push("/login");
     }
-  }, []);
-  const handleArchivarClick = (denunciaId) => {
-    // Aquí puedes implementar la lógica para archivar una denuncia
-    // Puedes enviar una solicitud al servidor para realizar la acción de archivar
-    // Por ejemplo, usando axios.post()
-    // Luego puedes actualizar la lista de denuncias en el estado
-  };
+  }, [history,token,denuncias]);
+  const denunciasCurso=(id) => {
+    const headers = {
+      'delitos-api-token-jwt': `${token}`,
+    };
+   axios.delete(`http://localhost:8001/api/denuncia-anonima/${id}`,{
+    headers
+   }).then(()=>{
+    setMensaje("Denuncia eliminada correctamente");
+   })
+  }
+  ;
   return (
     <div>
       <h1>Holiii eres Autoridad</h1>
@@ -57,11 +62,12 @@ const Autoridad = () => {
       </Link>
   
       <h2>Denuncias en Curso:</h2>
+      {mensaje && <div className="mensaje">{mensaje}</div>}
       {denuncias.map((denuncia) => (
         <DenunciaCard
           key={denuncia._id}
           denuncia={denuncia}
-          onArchivarClick={handleArchivarClick}
+          onArchivarClick={()=>denunciasCurso(denuncia._id)}
         />
       ))}
   
@@ -72,7 +78,7 @@ const Autoridad = () => {
             <DelitoCard
               key={delito._id}
               delito={delito}
-              onArchivarClick={handleArchivarClick}
+              //onArchivarClick={handleArchivarClick}
             />
           ))
         ) : (
@@ -80,8 +86,6 @@ const Autoridad = () => {
         )}
       </div>
     </div>
-  );
-  
+  ); 
 };
-
 export default Autoridad;

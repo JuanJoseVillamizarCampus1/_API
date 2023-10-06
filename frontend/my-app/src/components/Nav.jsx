@@ -1,22 +1,27 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Stack from 'react-bootstrap/Stack';
-
+import logo from '../assets/images/logo-1.png'
 function NavBar() {
   return (
     <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <img src={logo}
+          width="60"
+          height="60"
+          alt="Logo"/>
+          <Navbar.Brand href="#">Delitos</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#">Home</Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="/login">Iniciar Sesión</Nav.Link>
+            <Nav.Link href="/registro">Registrarse</Nav.Link>
+            <Nav.Link href="/denuncia-anonima">Hacer denuncia anonima</Nav.Link>
           </Nav>
         </Container>
       </Navbar>  
+     
   );
 }
 
