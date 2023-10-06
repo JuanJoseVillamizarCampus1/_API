@@ -17,9 +17,7 @@ async function getCollection(collectionName) {
 // GET BARRIOS por ID de Comuna
 async function obtenerBarriosPorIdComuna(req, res) {
     try {
-      const id = req.params._id;
-      console.log(`ID de comuna: ${id}`);
-  
+      const id = req.params._id;  
       // Crea una instancia de ObjectId a partir del ID proporcionado
       const objectId = new ObjectId(id);
   

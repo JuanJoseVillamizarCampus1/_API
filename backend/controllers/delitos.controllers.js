@@ -36,28 +36,19 @@ const postDelito = async (req, res) => {
         comuna,
         barrio
       };
-      const comunaname = await Comuna.findOne({ nombre: comuna });
-
-if (!comunaname) {
-  return res.status(404).json({ msg: 'Comuna no encontrada' });
-}
 
       // Buscar el usuario asignado y la categoría de delito
-      const [categoria] = await Promise.all([
-        CategoriaDelito.findById(categoriaDelito),
-      ]);
-
-      if  (!categoria) {
-        return res.status(404).json({ msg: 'categoría de delito no encontrados.' });
+      const categoria = await CategoriaDelito.findById(categoriaDelito);
+      if (!categoria) {
+        return res
+          .status(404)
+          .json({ msg: "categoría de delito no encontrada." });
       }
 
       // Crear el Delito
-      const delito = new Delito(delitoData);
-      delito.usuarioAsignado = asignado;
+      const delito = new Delito(delitoData)
       delito.categoriaDelito = categoria;
-
       await delito.save();
-
       res.status(201).json(delito);
     } else {
       res.status(404).json({ msg: 'Dirección no encontrada' });

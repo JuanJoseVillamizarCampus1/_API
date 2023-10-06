@@ -33,11 +33,11 @@ const Login = () => {
         const tokenapi = data;
         const token = tokenapi.token;
         const rol = tokenapi.usuario.rol;
-        const idusu = tokenapi.usuario._id;
+        const id = tokenapi.usuario._id;
         setToken(tokenapi);
         localStorage.setItem("rol", rol);
         localStorage.setItem("token", token);
-        localStorage.setItem("Usuario", JSON.stringify(idusu));
+        localStorage.setItem("Usuario", id);
         switch (rol) {
           case "Admin":
             history.push("/admin");

@@ -5,7 +5,17 @@ const validateJWT =require('../middlewares/validate.jwt')
 const {permisosRol,userExistsById} = require('../helpers/db.validators.usuarios')
 const routerDelito = require('express').Router();
 //POST DELITO
-routerDelito.post('/',[check('tipoDelito','El tipo de delito no es valido').not().isEmpty(),check(),check('descripcion','La descripcion no es valida').not().isEmpty(),check('direccion','La direccion no es valida').not().isEmpty(),check('comuna','La comuna no es valida').not().isEmpty(),validateDocuments],postDelito) //POST//localhost:8001/api/delitos
+routerDelito.post(
+    '/',
+    [
+      check('tipoDelito', 'El tipo de delito no es valido').not().isEmpty(),
+      check('descripcion', 'La descripcion no es valida').not().isEmpty(),
+      check('direccion', 'La direccion no es valida').not().isEmpty(),
+      check('comuna', 'La comuna no es valida').not().isEmpty(), // Añade la validación de la comuna
+      validateDocuments,
+    ],
+    postDelito
+  );//POST//localhost:8001/api/delitos
 //GET DELITOS ARCHIVADOS
 routerDelito.get('/archivados',[validateJWT,permisosRol,validateDocuments],getDelitosAarchivados)//GET//localhost:8001/api/delitos/archivados?page=1&perPage=10
 //  GET DELITOS EN CURSO
