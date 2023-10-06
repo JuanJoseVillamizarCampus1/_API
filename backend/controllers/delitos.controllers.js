@@ -70,6 +70,7 @@ const getDelitosAarchivados = async (req,res)=>{
     // Consulta para obtener las denuncias anónimas paginadas
     const delitos = await Delito.find({estado:'archivado'})
       .populate("categoriaDelito")
+      .populate("comuna","nombre")
       .skip(startIndex)
       .limit(perPage);
     // Contar el total de denuncias anónimas
@@ -99,6 +100,7 @@ const getDelitos = async (req,res)=>{
     // Consulta para obtener las denuncias anónimas paginadas
     const delitos = await Delito.find({estado:'en curso'})
       .populate("categoriaDelito")
+      .populate("comuna","nombre")
       .skip(startIndex)
       .limit(perPage);
     // Contar el total de denuncias anónimas
