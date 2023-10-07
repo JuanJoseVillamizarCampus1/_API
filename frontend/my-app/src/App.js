@@ -1,14 +1,13 @@
 
-import react, { Fragment } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import './App.css';
-import Login from './components/Login';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './components/login/Login';
 import Admin from './components/Admin';
 import Ciudadano from './components/Ciudadano';
 import Autoridad from './components/Autoridad';
 import Home from './components/Home';
-import DenunciaAnonima from './components/Denuncia-anonima';
-import Registro from './components/Registro';
+import DenunciaAnonima from './components/Denuncias/Denuncia-anonima';
+import Registro from './components/registro/Registro';
 function App() {
   return (
     <Fragment>

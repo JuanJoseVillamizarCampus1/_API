@@ -1,0 +1,50 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ajusta la altura de la pantalla completa */
+    background-image: url('../../assets/images/fondo.jpg');
+    background-size: cover; /* Cambia el color de fondo según tu preferencia */
+  }
+  .text {
+    color: #ffffff;
+  }
+  .denuncia-button {
+    background-color: #3e3636;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .denuncia-button:hover {
+    background-color: #677c92;
+  }
+  
+  .home-image img {
+    width: 100%;
+    height: auto;
+    opacity: 0.7; /* Ajusta la opacidad de la imagen de fondo */
+  }
+  
+  .home-content {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra para el contenido */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 1.2rem;
+  }
+  
